@@ -14,8 +14,8 @@ df_selected = pd.read_csv('df_selected.csv', encoding='latin1')
 
 # Page 1: Dashboard
 def dashboard():
-    st.image('norquest_logo.png', use_container_width=True)
     st.image('ifssa.png', use_container_width=True)
+    st.image('norquest_logo.png', use_container_width=True)
 
     st.subheader("💡 Abstract:")
 
@@ -283,7 +283,7 @@ def client_mapping():
 
     # Create a folium map centered around the mean latitude and longitude
     map_center = [clients_df['latitude'].mean(), clients_df['longitude'].mean()]
-    map = folium.Map(location=map_center, zoom_start=8)
+    map = folium.Map(location=map_center, zoom_start=9)
 
     # Define colors for each cluster
     colors = ['red', 'blue', 'green', 'purple', 'orange', 'darkred', 'darkblue', 'darkgreen']
@@ -298,7 +298,7 @@ def client_mapping():
 
     # Display the map in Streamlit
     map_html = map._repr_html_()  # Get the HTML representation of the map
-    components.html(map_html, height=800)  # Render it in the Streamlit app
+    components.html(map_html, height=900)  # Render it in the Streamlit app
 
 
 
