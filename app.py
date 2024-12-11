@@ -53,6 +53,8 @@ def exploratory_data_analysis():
     plt.figure(figsize=(8, 6))
     ax = sns.countplot(data=sub_df, x='Clients_IFSSA.sex', color='#e19a64', 
                        order=sub_df['Clients_IFSSA.sex'].value_counts().index)
+    # Change the x-axis label
+    ax.set_xlabel('Sex', fontsize=12)
     plt.title("Distribution of Sex")  # Custom title
     plt.xticks(rotation=45, ha='right')
 
@@ -69,6 +71,8 @@ def exploratory_data_analysis():
     plt.figure(figsize=(8, 6))
     ax = sns.countplot(data=sub_df, x='Clients_IFSSA.status', color='#e19a64', 
                        order=sub_df['Clients_IFSSA.status'].value_counts().index)
+    # Change the x-axis label
+    ax.set_xlabel('Status', fontsize=12)
     plt.title("Distribution of Client Status")  # Custom title
     plt.xticks(rotation=45, ha='right')
 
@@ -85,6 +89,8 @@ def exploratory_data_analysis():
     plt.figure(figsize=(8, 6))
     ax = sns.countplot(data=sub_df, x='Clients_IFSSA.household', color='#e19a64', 
                        order=sub_df['Clients_IFSSA.household'].value_counts().index)
+    # Change the x-axis label
+    ax.set_xlabel('Household', fontsize=12)
     plt.title("Distribution of Household")  # Custom title
     plt.xticks(rotation=45, ha='right')
 
