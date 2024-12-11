@@ -39,7 +39,7 @@ def dashboard():
     st.write(what_it_does)
 
 
-# Page 2: Exploratory Data Analysis (EDA) 
+# Page 2: Exploratory Data Analysis (EDA)
 def exploratory_data_analysis():
     st.title("Exploratory Data Analysis")
 
@@ -48,39 +48,83 @@ def exploratory_data_analysis():
 
     # --- Categorical Columns ---
     st.header("Categorical Columns Analysis")
-    cat_cols = ['Clients_IFSSA.sex', 'Clients_IFSSA.status', 'Clients_IFSSA.household']
-    for column in cat_cols:
-        plt.figure(figsize=(8, 6))
-        ax = sns.countplot(data=sub_df, x=column, color='#e19a64', 
-                           order=sub_df[column].value_counts().index)
-        plt.title(f'Distribution of {column}')
-        plt.xticks(rotation=45, ha='right')
+    
+    # Plot for 'Clients_IFSSA.sex'
+    plt.figure(figsize=(8, 6))
+    ax = sns.countplot(data=sub_df, x='Clients_IFSSA.sex', color='#e19a64', 
+                       order=sub_df['Clients_IFSSA.sex'].value_counts().index)
+    plt.title("Distribution of Sex")  # Custom title
+    plt.xticks(rotation=45, ha='right')
 
-        # Add count labels on top of bars
-        for p in ax.patches:
-            ax.annotate(f'{int(p.get_height())}', 
-                        (p.get_x() + p.get_width() / 2, p.get_height()),
-                        ha='center', va='bottom', fontsize=10)
+    # Add count labels on top of bars
+    for p in ax.patches:
+        ax.annotate(f'{int(p.get_height())}', 
+                    (p.get_x() + p.get_width() / 2, p.get_height()),
+                    ha='center', va='bottom', fontsize=10)
 
-        st.pyplot(plt)  # Display plot in Streamlit
-        plt.clf()
+    st.pyplot(plt)  # Display plot in Streamlit
+    plt.clf()
+
+    # Plot for 'Clients_IFSSA.status'
+    plt.figure(figsize=(8, 6))
+    ax = sns.countplot(data=sub_df, x='Clients_IFSSA.status', color='#e19a64', 
+                       order=sub_df['Clients_IFSSA.status'].value_counts().index)
+    plt.title("Distribution of Status")  # Custom title
+    plt.xticks(rotation=45, ha='right')
+
+    # Add count labels on top of bars
+    for p in ax.patches:
+        ax.annotate(f'{int(p.get_height())}', 
+                    (p.get_x() + p.get_width() / 2, p.get_height()),
+                    ha='center', va='bottom', fontsize=10)
+
+    st.pyplot(plt)  # Display plot in Streamlit
+    plt.clf()
+
+    # Plot for 'Clients_IFSSA.household'
+    plt.figure(figsize=(8, 6))
+    ax = sns.countplot(data=sub_df, x='Clients_IFSSA.household', color='#e19a64', 
+                       order=sub_df['Clients_IFSSA.household'].value_counts().index)
+    plt.title("Distribution of Household")  # Custom title
+    plt.xticks(rotation=45, ha='right')
+
+    # Add count labels on top of bars
+    for p in ax.patches:
+        ax.annotate(f'{int(p.get_height())}', 
+                    (p.get_x() + p.get_width() / 2, p.get_height()),
+                    ha='center', va='bottom', fontsize=10)
+
+    st.pyplot(plt)  # Display plot in Streamlit
+    plt.clf()
 
     # --- Numerical Columns ---
     st.header("Numerical Columns Analysis")
-    num_cols = ['Clients_IFSSA.age', 'Clients_IFSSA.dependents_qty']
-    for column in num_cols:
-        # Ensure numeric values
-        sub_df[column] = pd.to_numeric(sub_df[column], errors='coerce')
-        valid_data = sub_df[column].dropna()
+    
+    # Plot for 'Clients_IFSSA.age'
+    sub_df['Clients_IFSSA.age'] = pd.to_numeric(sub_df['Clients_IFSSA.age'], errors='coerce')
+    valid_data_age = sub_df['Clients_IFSSA.age'].dropna()
 
-        plt.figure(figsize=(8, 6))
-        plt.hist(valid_data, bins=10, color='#e19a64', edgecolor='black')
-        plt.title(f'Distribution of {column}')
-        plt.xlabel(column)
-        plt.ylabel('Frequency')
+    plt.figure(figsize=(8, 6))
+    plt.hist(valid_data_age, bins=10, color='#e19a64', edgecolor='black')
+    plt.title("Distribution of Age")  # Custom title
+    plt.xlabel('Age')  # Custom axis label
+    plt.ylabel('Frequency')
 
-        st.pyplot(plt)
-        plt.clf()
+    st.pyplot(plt)  # Display plot in Streamlit
+    plt.clf()
+
+    # Plot for 'Clients_IFSSA.dependents_qty'
+    sub_df['Clients_IFSSA.dependents_qty'] = pd.to_numeric(sub_df['Clients_IFSSA.dependents_qty'], errors='coerce')
+    valid_data_dependents = sub_df['Clients_IFSSA.dependents_qty'].dropna()
+
+    plt.figure(figsize=(8, 6))
+    plt.hist(valid_data_dependents, bins=10, color='#e19a64', edgecolor='black')
+    plt.title("Distribution of Dependents Quantity")  # Custom title
+    plt.xlabel('Dependents Quantity')  # Custom axis label
+    plt.ylabel('Frequency')
+
+    st.pyplot(plt)  # Display plot in Streamlit
+    plt.clf()
 
 
     ##### Counts over time
