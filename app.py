@@ -283,7 +283,7 @@ def client_mapping():
 
     # Create a folium map centered around the mean latitude and longitude
     map_center = [clients_df['latitude'].mean(), clients_df['longitude'].mean()]
-    map = folium.Map(location=map_center, zoom_start=11)
+    map = folium.Map(location=map_center, zoom_start=10)
 
     # Define colors for each cluster
     colors = ['red', 'blue', 'green', 'purple', 'orange', 'darkred', 'darkblue', 'darkgreen']
@@ -298,7 +298,7 @@ def client_mapping():
 
     # Display the map in Streamlit
     map_html = map._repr_html_()  # Get the HTML representation of the map
-    components.html(map_html,height=1500)  # Render it in the Streamlit app
+    components.html(map_html,height=1000, width = 900)  # Render it in the Streamlit app
 
 
 
