@@ -298,7 +298,7 @@ def client_mapping():
 
     # Display the map in Streamlit
     map_html = map._repr_html_()  # Get the HTML representation of the map
-    components.html(map_html, width=900, height=1100)  # Render it in the Streamlit app
+    components.html(map_html, width=900, height=1300)  # Render it in the Streamlit app
 
 
 
