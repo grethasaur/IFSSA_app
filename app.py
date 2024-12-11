@@ -69,7 +69,7 @@ def exploratory_data_analysis():
     plt.figure(figsize=(8, 6))
     ax = sns.countplot(data=sub_df, x='Clients_IFSSA.status', color='#e19a64', 
                        order=sub_df['Clients_IFSSA.status'].value_counts().index)
-    plt.title("Distribution of Status")  # Custom title
+    plt.title("Distribution of Client Status")  # Custom title
     plt.xticks(rotation=45, ha='right')
 
     # Add count labels on top of bars
