@@ -511,8 +511,12 @@ def xai():
     """)
 
     # PDP for 'scheduled_date_count' feature
-    fig, ax = plt.subplots(figsize=(10, 6))
-    plot_partial_dependence(model, X=history_dataset[feature_columns], features=['scheduled_date_count'], ax=ax)
+    pdp = PartialDependenceDisplay.from_estimator(
+        model, 
+        X=history_dataset[feature_columns], 
+        features=['scheduled_date_count']
+    )
+    fig = pdp.figure_
     st.pyplot(fig)
 
     # Residual Analysis
