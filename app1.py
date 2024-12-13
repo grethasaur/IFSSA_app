@@ -6,6 +6,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
 import xgboost as xgb
+from sklearn.ensemble import GradientBoostingClassifier
 from collections import Counter
 import folium
 import streamlit.components.v1 as components
@@ -482,7 +483,7 @@ def xai():
     shap.summary_plot(shap_values, sample_data, feature_names=feature_columns)
     st.pyplot()
 
-    # Feature Importance Plot
+    # Feature Importance Plot (using SHAP or model feature importances)
     st.subheader("Feature Importance")
     st.write("""
     Feature importance plots show the relative importance of each feature in making predictions. 
@@ -501,23 +502,6 @@ def xai():
 
     # Display feature importance as a bar chart
     st.bar_chart(feature_importance_df.set_index('Feature')['Importance'])
-
-    # Partial Dependence Plot (PDP)
-    st.subheader("Partial Dependence Plot (PDP)")
-    st.write("""
-    Partial Dependence Plots help us understand the relationship between individual features and the target prediction. 
-    They show how changing a feature's value influences the predicted outcome while keeping other features constant.
-    Below is the PDP for a key feature like `scheduled_date_count`:
-    """)
-
-    # PDP for 'scheduled_date_count' feature
-    pdp = PartialDependenceDisplay.from_estimator(
-        model, 
-        X=history_dataset[feature_columns], 
-        features=['scheduled_date_count']
-    )
-    fig = pdp.figure_
-    st.pyplot(fig)
 
     # Residual Analysis
     st.header("Residual Analysis")
@@ -545,11 +529,11 @@ def xai():
     In this section, we explored various XAI techniques to help you understand how the model makes predictions:
     - **SHAP Values**: Show how much each feature contributes to specific predictions.
     - **Feature Importance**: Displays the relative importance of each feature in model decisions.
-    - **Partial Dependence Plots (PDP)**: Visualizes how individual features influence the predicted outcome.
     - **Residual Analysis**: Analyzes the residuals (actual vs. predicted values) for model performance evaluation.
     
     By incorporating these techniques, we ensure transparency and interpretability in the model, building trust in the results.
     """)
+
 
 # Main App Logic
 def main():
