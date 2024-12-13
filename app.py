@@ -62,7 +62,22 @@ def homepage():
         "These challenges underscore the urgent need for innovative solutions to combat the growing food insecurity crisis."
         "This project uses data analysis and machine learning to forecast demand, helping ensure more efficient resource allocation and better outcomes for those in need."
     )
-
+    col1, col2 = st.columns(2)
+    
+    with col1:
+        st.markdown("""
+        **Mission:**  
+        To forecast and meet community demand across Edmonton by leveraging data-driven insights for the Islamic Family Foundation's food hamper program.
+        We aim to optimize resource allocation, ensuring timely, culturally appropriate support for food-insecure households.
+        """)
+    
+    with col2:
+        st.markdown("""
+        **Vision:**  
+        To create a responsive food aid program that adapts to the community's evolving needs. 
+        By utilizing predictive models, we strive to expand the reach and fairness of the Islamic Family Foundation’s resources for all Edmonton residents.
+        """)
+    
     # Key Statistics Section
     st.markdown("<h2 class='sub-header'>Food Insecurity Statistics at a Glance</h2>", unsafe_allow_html=True)
     col2, col1 = st.columns(2)
