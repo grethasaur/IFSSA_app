@@ -56,9 +56,11 @@ def homepage():
     # Introduction Section
     st.markdown("<h2 class='sub-header'>Introduction</h2>", unsafe_allow_html=True)
     st.info(
-        "Food insecurity in Edmonton has surged due to economic instability, leaving families struggling to afford basic necessities. "
-        "Islamic Family distributes over **3,095 food hampers monthly**, playing a vital role in supporting vulnerable populations. "
-        "This project leverages data analysis and machine learning to forecast demand, ensuring efficient resource allocation."
+        "Food insecurity has become a pressing issue across Canada, with Alberta experiencing particularly alarming rates."
+        "Edmonton has been hit hard, with food bank usage doubling since the COVID-19 pandemic."
+        "Additionally, food hamper sizes have decreased due to resource constraints (Tran, 2024)."
+        "These challenges underscore the urgent need for innovative solutions to combat the growing food insecurity crisis."
+        "This project uses data analysis and machine learning to forecast demand, helping ensure more efficient resource allocation and better outcomes for those in need."
     )
 
     # Key Statistics Section
@@ -148,9 +150,9 @@ def exploratory_data_analysis():
 
     # Grouped Demographic Data (Dependents and Age)
     with col5:
-        st.metric("With Dependents", "≥1")
+        st.metric("With Dependents", "≥ 1")
     with col6:
-        st.metric("Average Age", "~41 yrs Old")
+        st.metric("Average Age", "~41 yrs old")
 
     # Third Column: Additional Demographics
     with col7:
