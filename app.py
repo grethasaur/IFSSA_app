@@ -366,11 +366,11 @@ def exploratory_data_analysis():
     st.pyplot(plt)
 
     #Tableu Dashboard
-    # Tableau Embed Code (copy the entire code from Tableau Public's embed option)
-    tableau_url = "https://public.tableau.com/views/WorkIntegratedllDashboard/Dash1?:language=en-US&:sid=&:redirect=auth&:display_count=n&:origin=viz_share_link"
-    
-    # Embed Tableau dashboard into Streamlit using components.html
-    components.iframe(tableau_url, height=800, width = 800)
+    #Title and clickable link to Tableau Interactive Dashboard
+    st.title("Tableau Interactive Dashboard")
+    st.markdown("[Click here to view the Tableau Dashboard]"
+                "(https://public.tableau.com/views/WorkIntegratedllDashboard/Dash1?:language=en-US&:sid=&:redirect=auth&:display_count=n&:origin=viz_share_link)"
+               )
 
 # Page 3: Neighbourhood Mapping
 def client_mapping():
