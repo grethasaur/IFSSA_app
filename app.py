@@ -695,7 +695,7 @@ def xai():
 
 # Main App Logic
 def main():
-    st.sidebar.title("Food Drive App")
+    st.sidebar.title("IFSSA Food Hamper App")
     app_page = st.sidebar.radio("Select a Page", ["Homepage", "EDA","GeoMapping", "ML Modeling", "Explainable AI"])
 
     if app_page == "Homepage":
