@@ -23,7 +23,7 @@ def homepage():
     st.markdown("""
         <style>
             .main-header {
-                font-size: 2.5rem;
+                font-size: 4rem;
                 font-weight: bold;
                 text-align: center;
                 margin-bottom: 1rem;
