@@ -12,6 +12,7 @@ import streamlit.components.v1 as components
 from PIL import Image
 import shap
 from sklearn.inspection import plot_partial_dependence
+from sklearn.inspection import PartialDependenceDisplay
 
 # Load the dataset with a specified encoding
 df_selected = pd.read_csv('df_selected.csv', encoding='latin1')
