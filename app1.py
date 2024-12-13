@@ -463,6 +463,11 @@ def xai():
     time_lagged_features = pd.read_csv('time_lagged_features.csv')
     model = joblib.load('model_xgb.pkl')
     history_dataset = time_lagged_features.copy()
+    feature_columns = [
+    'scheduled_date_count', 'pickup_date_count_lag_7', 'scheduled_date_count_7',
+    'pickup_date_count_lag_14', 'scheduled_date_count_14', 'pickup_date_count_lag_21', 'scheduled_date_count_21',
+    'month', 'day_of_week', 'quarter', 'day_of_year', 'week_of_year'
+    ]
 
     # Initialize SHAP explainer for XGBoost model
     explainer = shap.Explainer(model)
