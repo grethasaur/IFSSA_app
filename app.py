@@ -65,11 +65,13 @@ def homepage():
 
     # Key Statistics Section
     st.markdown("<h2 class='sub-header'>Food Insecurity Statistics at a Glance</h2>", unsafe_allow_html=True)
-    col1, col2, col3, col4 = st.columns(4)
+    col1, col2 = st.columns(2)
+    col3, col4 = st.columns(2)
 
     # National Food Insecurity statistic
     col1.metric("National Food Insecurity", "22.9%", "Canadians Affected")
     col2.metric("Alberta's Food Insecurity", "27%", "vs National Avg")
+    
     col3.metric("Newcomer Clients", "32%", "<10 yrs in Canada")
 
     # IFSSA Specific
