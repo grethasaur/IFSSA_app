@@ -633,7 +633,7 @@ def xai():
 
     # Display feature importance as a bar chart
     fig, ax = plt.subplots(figsize=(10, 6))  # Create a figure and axis
-    ax.bar(feature_importance_df['Importance'], feature_importance_df['Feature'])
+    ax.barh(feature_importance_df['Feature'], feature_importance_df['Importance'])
     ax.set_xlabel('Importance')
     ax.set_ylabel('Features')
     ax.set_title('Feature Importance')
