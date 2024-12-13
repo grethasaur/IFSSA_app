@@ -586,9 +586,9 @@ def xai():
     SHAP (SHapley Additive exPlanations) values are used to explain the contribution of each feature 
     to individual predictions. By calculating SHAP values, we can see how much each feature 
     (such as `scheduled_date_count`, `month`, `day_of_week`, etc.) contributes to the prediction for a specific data point.
-    
-    Below is the SHAP analysis for a sample prediction:
     """)
+        
+   # Below is the SHAP analysis for a sample prediction:
     
     # Load time-lagged features and model
     time_lagged_features = pd.read_csv('time_lagged_features.csv')
@@ -603,7 +603,7 @@ def xai():
     # Initialize SHAP explainer for XGBoost model
     explainer = shap.Explainer(model)
     
-    # Choose a sample data point from history_dataset for explanation
+    # A sample data point from history_dataset for explanation
     sample_data = history_dataset.iloc[0][feature_columns].values.reshape(1, -1)
     
     # Calculate SHAP values
