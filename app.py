@@ -14,6 +14,7 @@ import streamlit.components.v1 as components
 from PIL import Image
 import shap
 from sklearn.inspection import PartialDependenceDisplay
+from sklearn.metrics import r2_score
 
 # Load the dataset with a specified encoding
 df_selected = pd.read_csv('df_selected.csv', encoding='latin1')
