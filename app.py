@@ -660,26 +660,50 @@ def xai():
     ax.set_title('Feature Importance')
     st.pyplot(fig)
 
-    # Residual Analysis
-    st.header("Residual Analysis")
+    # Residual Analysis Against Time
+    st.header("Residual Analysis Against Time")
     st.write("""
-    Residual analysis helps to evaluate how well the model is performing by comparing the actual vs. predicted values. 
-    A well-performing model should have residuals that are randomly distributed. 
-    Below is a plot comparing the actual vs. predicted pickup counts:
+    Plotting residuals against time helps identify temporal patterns, trends, or periods where the model may underperform.
+    Ideally, residuals should be randomly distributed across time.
     """)
 
     # Predictions and residuals
     predictions = model.predict(history_dataset[feature_columns])
     residuals = history_dataset['pickup_date_count'] - predictions
 
-    # Plot Actual vs. Predicted Residuals
-    fig, ax = plt.subplots(figsize=(10, 6))  # Create a figure and axis
-    ax.scatter(history_dataset['pickup_date_count'], residuals)
+    # Add residuals and predictions back to dataset
+    history_dataset['Predicted'] = predictions
+    history_dataset['Residuals'] = residuals
+
+    # Residuals vs. Time Plot
+    fig, ax = plt.subplots(figsize=(10, 6))
+    ax.plot(history_dataset['DATE'], history_dataset['Residuals'], label='Residuals', color='tab:blue')
     ax.axhline(y=0, color='r', linestyle='--')
-    ax.set_xlabel('Actual Pickup Count')
+    ax.set_xlabel('Date')
     ax.set_ylabel('Residuals')
-    ax.set_title('Residuals: Actual vs. Predicted')
-    st.pyplot(fig)  # Explicitly pass the figure
+    ax.set_title('Residuals Over Time')
+    st.pyplot(fig)
+
+    # Actual vs. Predicted Plot
+    st.header("Actual vs Predicted Pickup Counts")
+    st.write("""
+    Comparing actual vs. predicted values helps visualize the model's accuracy and alignment with observed data.
+    Below is the plot of actual vs. predicted pickup counts:
+    """)
+
+    fig, ax = plt.subplots(figsize=(10, 6))
+    ax.plot(history_dataset['DATE'], history_dataset['pickup_date_count'], label='Actual', color='tab:green')
+    ax.plot(history_dataset['DATE'], history_dataset['Predicted'], label='Predicted', color='tab:orange')
+    ax.set_xlabel('Date')
+    ax.set_ylabel('Pickup Counts')
+    ax.set_title('Actual vs Predicted Pickup Counts Over Time')
+    ax.legend()
+    st.pyplot(fig)
+
+    # R² Score Calculation and Display
+    st.subheader("R² Score")
+    r2 = r2_score(history_dataset['pickup_date_count'], predictions)
+    st.write(f"The R² score for the model is: **{r2:.3f}**")
 
     # Conclusion
     st.write("""
