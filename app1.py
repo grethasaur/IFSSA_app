@@ -121,15 +121,15 @@ def exploratory_data_analysis():
 
     # Second Column: Client and Workforce Information
     with col3:
-        st.metric("Male", "51.1%")
+        st.metric("Top Language Preferred", "Arabic")
     with col4:
-        st.metric("Female", "48.9%")
+        st.metric("Male Clients", "55%")
 
     # Grouped Demographic Data (Dependents and Age)
     with col5:
-        st.metric("With Dependents", "At Least 1")
+        st.metric("With Dependents", "≥1")
     with col6:
-        st.metric("Average Age", "~41 Years Old")
+        st.metric("Average Age", "~41 yrs Old")
 
     # Third Column: Additional Demographics
     with col7:
