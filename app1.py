@@ -41,7 +41,7 @@ def homepage():
                 color: grey;
             }
         </style>
-        <h1 class="main-header">📊 Forecasting Food Hamper Demand</h1>
+        <h1 class="main-header">🍽️ Forecasting Food Hamper Demand</h1>
     """, unsafe_allow_html=True)
 
     # Top Section: Logos side by side
@@ -100,7 +100,28 @@ def homepage():
 # Page 2: Exploratory Data Analysis (EDA)
 def exploratory_data_analysis():
     # Page Title
-    st.markdown("<h1 style='text-align: center; color: white; font-size: 48px;'>Exploratory Data Analysis</h1>", unsafe_allow_html=True)
+    st.markdown("""
+        <style>
+            .main-header {
+                font-size: 6rem;
+                font-weight: bold;
+                text-align: center;
+                margin-bottom: 1rem;
+            }
+            .sub-header {
+                font-size: 1.5rem;
+                font-weight: semi-bold;
+                margin-top: 1rem;
+            }
+            .footer {
+                font-size: 0.8rem;
+                text-align: center;
+                margin-top: 2rem;
+                color: grey;
+            }
+        </style>
+        <h1 class="main-header">📊 Visualizations</h1>
+    """, unsafe_allow_html=True)
     
     st.header("Key Insights")
     
@@ -343,8 +364,29 @@ def exploratory_data_analysis():
 
 # Page 3: Neighbourhood Mapping
 def client_mapping():
-    st.markdown("<h1 style='text-align: center; color: white; font-size: 48px;'>Client GeoMapping in Edmonton</h1>", unsafe_allow_html=True)
-
+    st.markdown("""
+        <style>
+            .main-header {
+                font-size: 6rem;
+                font-weight: bold;
+                text-align: center;
+                margin-bottom: 1rem;
+            }
+            .sub-header {
+                font-size: 1.5rem;
+                font-weight: semi-bold;
+                margin-top: 1rem;
+            }
+            .footer {
+                font-size: 0.8rem;
+                text-align: center;
+                margin-top: 2rem;
+                color: grey;
+            }
+        </style>
+        <h1 class="main-header">🗺️ Client GeoMapping in Edmonton</h1>
+    """, unsafe_allow_html=True)
+    
     # Load the dataset
     clients_df = pd.read_csv('client_cluster.csv', encoding='latin1')
 
@@ -370,8 +412,29 @@ def client_mapping():
 
 # Page 4: Machine Learning Modeling
 def machine_learning_modeling():
-    st.markdown("<h1 style='text-align: center; color: white; font-size: 48px;'>Machine Learning Modelling</h1>", unsafe_allow_html=True)
-
+    st.markdown("""
+    <style>
+        .main-header {
+            font-size: 6rem;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 1rem;
+        }
+        .sub-header {
+            font-size: 1.5rem;
+            font-weight: semi-bold;
+            margin-top: 1rem;
+        }
+        .footer {
+            font-size: 0.8rem;
+            text-align: center;
+            margin-top: 2rem;
+            color: grey;
+        }
+        </style>
+        <h1 class="main-header">🗺📈 Machine Learning Modelling</h1>
+    """, unsafe_allow_html=True)
+    
     # Load time-lagged features and model
     time_lagged_features = pd.read_csv('time_lagged_features.csv')
     model = joblib.load('model_xgb.pkl')
@@ -486,7 +549,28 @@ def machine_learning_modeling():
 
 # Page 5: Explainable AI
 def xai():
-    st.markdown("<h1 style='text-align: center; color: white; font-size: 48px;'>Explainable AI</h1>", unsafe_allow_html=True)
+    st.markdown("""
+    <style>
+        .main-header {
+            font-size: 6rem;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 1rem;
+        }
+        .sub-header {
+            font-size: 1.5rem;
+            font-weight: semi-bold;
+            margin-top: 1rem;
+        }
+        .footer {
+            font-size: 0.8rem;
+            text-align: center;
+            margin-top: 2rem;
+            color: grey;
+        }
+    </style>
+    <h1 class="main-header">🗺🧠 Explainable AI</h1>
+    """, unsafe_allow_html=True)
 
     # Introduction to Explainable AI
     st.write("""
