@@ -662,7 +662,7 @@ def xai():
 
     # Conclusion
     st.write("""
-    In this section, we explored various XAI techniques to help you understand how the model makes predictions:
+    In this section, we explore various XAI techniques to help us understand how the model makes predictions:
     - **SHAP Values**: Show how much each feature contributes to specific predictions.
     - **Feature Importance**: Displays the relative importance of each feature in model decisions.
     - **Residual Analysis**: Analyzes the residuals (actual vs. predicted values) for model performance evaluation.
