@@ -677,7 +677,9 @@ def xai():
 
     # Residuals vs. Time Plot
     fig, ax = plt.subplots(figsize=(10, 6))
-    ax.plot(history_dataset['DATE'], history_dataset['Residuals'], label='Residuals', color='tab:blue')
+    # Use 'day_of_year' or 'week_of_year' as a proxy for time
+    ax.plot(history_dataset['day_of_year'], residuals, label='Residuals', color='tab:blue')
+    ax.set_xlabel('Day of Year')  # Update x-axis label
     ax.axhline(y=0, color='r', linestyle='--')
     ax.set_xlabel('Date')
     ax.set_ylabel('Residuals')
