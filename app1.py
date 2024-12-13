@@ -2,6 +2,7 @@ import streamlit as st
 import pandas as pd
 import plotly.express as px
 import joblib
+from collections import Counter
 import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
@@ -65,16 +66,12 @@ def homepage():
     col1, col2, col3, col4 = st.columns(4)
 
     # National Food Insecurity statistic
-    col1.metric("Alberta's Food Insecurity", "27% Higher", "vs National Avg")
-    col2.metric("National Food Insecurity", "22.9%", "Canadians Affected")
-
-    # Edmonton Food bank
+    col1.metric("National Food Insecurity", "22.9%", "Canadians Affected")
+    col2.metric("Alberta's Food Insecurity", "27%", "vs National Avg")
     col3.metric("Newcomers to Canada", "32%", "Clients in Canada less than 10 years")
 
     # IFSSA Specific
-    col4.metric("IFSSA Monthly Hampers Distributed", "3,095", "Growing Demand")
-
-
+    col4.metric("IFSSA Hampers Distributed Monthly", "2000", "Growing Demand")
 
 
     st.write("---")
@@ -202,6 +199,43 @@ def exploratory_data_analysis():
 
     st.pyplot(plt)  # Display plot in Streamlit
     plt.clf()
+
+    # ---------Plot for 'Clients_IFSSA.household'
+    # STEP 1: Split the 'preferred_languages' column by a delimiter
+    sub_df['preferred_languages_split'] = sub_df['Clients_IFSSA.preferred_languages'].str.split(',')
+
+    # STEP 2: Flatten the lists and clean up any leading/trailing spaces
+    all_languages = [lang.strip() for sublist in sub_df['preferred_languages_split'].dropna() for lang in sublist]
+
+    # STEP 3: Count the occurrences of each language
+    language_counts = Counter(all_languages)
+
+    # STEP 4: Convert to a DataFrame to see the counts more easily
+    language_counts_df = pd.DataFrame(language_counts.items(), columns=['Language', 'Count'])
+
+    # Sort the DataFrame by 'Count' in descending order and keep only the top 10
+    top_languages_df = language_counts_df.sort_values(by='Count', ascending=False).head(10)
+
+    # STEP 5: Create the figure and axes for Streamlit
+    fig, ax = plt.subplots(figsize=(10, 6))
+    
+    # Bar plot
+    bars = ax.bar(top_languages_df['Language'], top_languages_df['Count'], color='#e19a64')
+    ax.set_title('Top 10 Language Preferences Count', fontsize=14)
+    ax.set_xlabel('Language', fontsize=12)
+    ax.set_ylabel('Count', fontsize=12)
+    plt.xticks(rotation=45, ha='right')
+
+    # Add count labels on top of bars
+    for bar in bars:
+        yval = bar.get_height()
+        ax.text(bar.get_x() + bar.get_width()/2, yval, int(yval), 
+                ha='center', va='bottom', fontsize=10)
+
+    # Adjust layout and render in Streamlit
+    plt.tight_layout()
+    st.pyplot(fig)
+    
 
     # --- Numerical Columns ---
     st.header("Numerical Columns Analysis")
