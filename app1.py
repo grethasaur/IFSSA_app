@@ -133,115 +133,165 @@ def exploratory_data_analysis():
     # Remove duplicate clients for individual-level analysis
     sub_df = df_selected.drop_duplicates(subset=['unique_client'])
 
-    # --- Categorical Columns --- 
+    # --- Categorical Columns ---
     st.header("Categorical Columns Analysis")
-
-    # Select category to plot for 'Clients_IFSSA.sex'
-    sex = st.selectbox('Select Gender', options=sub_df['Clients_IFSSA.sex'].unique(), index=0)
-
+    
     # Plot for 'Clients_IFSSA.sex'
-    filtered_sex_df = sub_df[sub_df['Clients_IFSSA.sex'] == sex]
-    fig_sex = plt.figure(figsize=(8, 6))
-    ax = sns.countplot(data=filtered_sex_df, x='Clients_IFSSA.sex', color='#e19a64',
-                      order=filtered_sex_df['Clients_IFSSA.sex'].value_counts().index)
+    plt.figure(figsize=(8, 6))
+    ax = sns.countplot(data=sub_df, x='Clients_IFSSA.sex', color='#e19a64', 
+                       order=sub_df['Clients_IFSSA.sex'].value_counts().index)
+    # Change the x-axis label
     ax.set_xlabel('Sex', fontsize=12)
-    plt.title(f"Distribution of Sex for {sex}")  # Custom title
+    plt.title("Distribution of Sex")  # Custom title
     plt.xticks(rotation=45, ha='right')
 
     # Add count labels on top of bars
     for p in ax.patches:
-        ax.annotate(f'{int(p.get_height())}', (p.get_x() + p.get_width() / 2, p.get_height()),
+        ax.annotate(f'{int(p.get_height())}', 
+                    (p.get_x() + p.get_width() / 2, p.get_height()),
                     ha='center', va='bottom', fontsize=10)
 
-    st.pyplot(fig_sex)  # Display plot in Streamlit
+    st.pyplot(plt)  # Display plot in Streamlit
+    plt.clf()
+
+    # Plot for 'Clients_IFSSA.status'
+    plt.figure(figsize=(8, 6))
+    ax = sns.countplot(data=sub_df, x='Clients_IFSSA.status', color='#e19a64', 
+                       order=sub_df['Clients_IFSSA.status'].value_counts().index)
+    # Change the x-axis label
+    ax.set_xlabel('Status', fontsize=12)
+    plt.title("Distribution of Client Status")  # Custom title
+    plt.xticks(rotation=45, ha='right')
+
+    # Add count labels on top of bars
+    for p in ax.patches:
+        ax.annotate(f'{int(p.get_height())}', 
+                    (p.get_x() + p.get_width() / 2, p.get_height()),
+                    ha='center', va='bottom', fontsize=10)
+
+    st.pyplot(plt)  # Display plot in Streamlit
+    plt.clf()
+
+    # Plot for 'Clients_IFSSA.household'
+    plt.figure(figsize=(8, 6))
+    ax = sns.countplot(data=sub_df, x='Clients_IFSSA.household', color='#e19a64', 
+                       order=sub_df['Clients_IFSSA.household'].value_counts().index)
+    # Change the x-axis label
+    ax.set_xlabel('Household', fontsize=12)
+    plt.title("Distribution of Household")  # Custom title
+    plt.xticks(rotation=45, ha='right')
+
+    # Add count labels on top of bars
+    for p in ax.patches:
+        ax.annotate(f'{int(p.get_height())}', 
+                    (p.get_x() + p.get_width() / 2, p.get_height()),
+                    ha='center', va='bottom', fontsize=10)
+
+    st.pyplot(plt)  # Display plot in Streamlit
     plt.clf()
 
     # --- Numerical Columns ---
     st.header("Numerical Columns Analysis")
+    
+    # Plot for 'Clients_IFSSA.age'
+    sub_df['Clients_IFSSA.age'] = pd.to_numeric(sub_df['Clients_IFSSA.age'], errors='coerce')
+    valid_data_age = sub_df['Clients_IFSSA.age'].dropna()
 
-    # Plot for 'Clients_IFSSA.age' with slider to adjust age range
-    min_age, max_age = st.slider("Select Age Range", int(sub_df['Clients_IFSSA.age'].min()), 
-                                int(sub_df['Clients_IFSSA.age'].max()), (int(sub_df['Clients_IFSSA.age'].min()), int(sub_df['Clients_IFSSA.age'].max())))
-
-    # Filter by selected age range
-    filtered_age_df = sub_df[(sub_df['Clients_IFSSA.age'] >= min_age) & (sub_df['Clients_IFSSA.age'] <= max_age)]
-    valid_data_age = filtered_age_df['Clients_IFSSA.age'].dropna()
-
-    fig_age = plt.figure(figsize=(8, 6))
+    plt.figure(figsize=(8, 6))
     plt.hist(valid_data_age, bins=10, color='#e19a64', edgecolor='black')
-    plt.title(f"Distribution of Age ({min_age}-{max_age} years)")  # Custom title
+    plt.title("Distribution of Age")  # Custom title
     plt.xlabel('Age')  # Custom axis label
     plt.ylabel('Frequency')
 
-    st.pyplot(fig_age)  # Display plot in Streamlit
+    st.pyplot(plt)  # Display plot in Streamlit
     plt.clf()
 
-    # --- Counts over time ---
-    st.title("Pickup and Scheduled Date Counts Over Time")
+    # Plot for 'Clients_IFSSA.dependents_qty'
+    sub_df['Clients_IFSSA.dependents_qty'] = pd.to_numeric(sub_df['Clients_IFSSA.dependents_qty'], errors='coerce')
+    valid_data_dependents = sub_df['Clients_IFSSA.dependents_qty'].dropna()
 
-    # Use date range selector for 'pickup_date' and 'collect_scheduled_date'
-    start_date = st.date_input("Start Date", value=pd.to_datetime('2023-11-01'))
-    end_date = st.date_input("End Date", value=pd.to_datetime('2024-08-28'))
+    plt.figure(figsize=(8, 6))
+    plt.hist(valid_data_dependents, bins=10, color='#e19a64', edgecolor='black')
+    plt.title("Distribution of Dependents Quantity")  # Custom title
+    plt.xlabel('Dependents Quantity')  # Custom axis label
+    plt.ylabel('Frequency')
 
-    # Filter data by selected date range
-    df_selected_filtered = df_selected[(df_selected['pickup_date'] >= start_date) & (df_selected['pickup_date'] <= end_date) |
-                                      (df_selected['collect_scheduled_date'] >= start_date) & (df_selected['collect_scheduled_date'] <= end_date)]
+    st.pyplot(plt)  # Display plot in Streamlit
+    plt.clf()
 
-    # Convert dates to datetime
-    df_selected_filtered['pickup_date'] = pd.to_datetime(df_selected_filtered['pickup_date'])
-    df_selected_filtered['collect_scheduled_date'] = pd.to_datetime(df_selected_filtered['collect_scheduled_date'])
 
-    # Create counts for pickup and scheduled dates
-    date_range = pd.date_range(start=start_date, end=end_date)
+    ##### Counts over time
+    # Convert the 'pickup_date' and 'collect_scheduled_date' columns to datetime
+    df_selected['pickup_date'] = pd.to_datetime(df_selected['pickup_date'])
+    df_selected['collect_scheduled_date'] = pd.to_datetime(df_selected['collect_scheduled_date'])
+
+    # Create an empty date range DataFrame
+    date_range = pd.date_range(start='2023-11-01', end='2024-08-28')
     pickup_count = []
     scheduled_count = []
 
+    # Loop through each date in the date range for pickup_date
     for date in date_range:
-        pickup_count_value = df_selected_filtered[df_selected_filtered['pickup_date'].dt.date == date.date()].shape[0]
+        pickup_count_value = df_selected[df_selected['pickup_date'].dt.date == date.date()].shape[0]  # Count of rows matching the date
         pickup_count.append(pickup_count_value)
 
+    # Loop through each date in the date range for collect_scheduled_date
     for date in date_range:
-        scheduled_count_value = df_selected_filtered[df_selected_filtered['collect_scheduled_date'].dt.date == date.date()].shape[0]
+        scheduled_count_value = df_selected[df_selected['collect_scheduled_date'].dt.date == date.date()].shape[0]  # Count of rows matching the date
         scheduled_count.append(scheduled_count_value)
 
+    # Create a DataFrame from the results
     df_time_lag = pd.DataFrame({
         'date': date_range,
         'pickup_date_count': pickup_count,
         'collect_scheduled_date_count': scheduled_count
     })
 
-    # Cultural event dates for annotations
+    # Cultural event dates
     cultural_events = {
-        'Ramadan Start': '2024-03-10',  # Start of Ramadan
-        'Ramadan End': '2024-04-07',    # End of Ramadan
-        'Eid al-Adha': '2024-06-17',    # Eid al-Adha
-        'Canada Day': '2024-07-01',     # National Day of Canada
-        'Islamic New Year': '2024-07-07',  # Islamic New Year
+        'Ramadan Start': '2024-03-10',            # Start of Ramadan
+        'Ramadan End': '2024-04-07',              # End of Ramadan
+        'Eid al-Adha': '2024-06-17',              # Celebration of Sacrifice
+        'Canada Day': '2024-07-01',                # National Day of Canada
+        'Islamic New Year': '2024-07-07',   # Islamic New Year
     }
 
-    # Interactive plot for pickup and scheduled date counts
-    fig_time = plt.figure(figsize=(10, 5))
-    plt.plot(df_time_lag['date'], df_time_lag['pickup_date_count'], marker='o', label='Pickup Date Count')
-    plt.plot(df_time_lag['date'], df_time_lag['collect_scheduled_date_count'], marker='o', label='Scheduled Date Count')
+    # Streamlit: Display the plot
+    st.title("Pickup and Scheduled Date Counts Over Time")
 
-    # Add vertical lines for cultural events
+    # Plotting
+    plt.figure(figsize=(10, 5))
+    plt.plot(
+        df_time_lag['date'],
+        df_time_lag['pickup_date_count'],
+        marker='o',
+        label='Pickup Date Count'
+        )
+    
+    plt.plot(
+        df_time_lag['date'],
+        df_time_lag['collect_scheduled_date_count'],
+        marker='o',
+        label='Scheduled Date Count'
+        )
+
+    # Adding vertical lines for cultural events
     for event_name, event_date in cultural_events.items():
         plt.axvline(pd.to_datetime(event_date), color='red', linestyle='--', label=event_name)
-        plt.text(pd.to_datetime(event_date), max(df_time_lag['pickup_date_count'].max(), df_time_lag['collect_scheduled_date_count'].max()) * 0.9,
+        plt.text(pd.to_datetime(event_date), max(df_time_lag['pickup_date_count'].max(), df_time_lag['collect_scheduled_date_count'].max()) * 0.9, 
                 event_name, rotation=90, verticalalignment='center', fontsize=9)
 
+
     # Adding titles and labels
-    plt.title(f'Pickup and Scheduled Date Counts Over Time ({start_date} to {end_date})')
+    plt.title('Pickup and Scheduled Date Counts Over Time')
     plt.xlabel('Date')
     plt.ylabel('Counts')
-    plt.xticks(rotation=45)
+    plt.xticks(rotation=45)  # Rotate date labels for better readability
     plt.legend()
     plt.grid()
 
-    st.pyplot(fig_time)  # Display plot in Streamlit
-    plt.clf()
-
-
+    # Show plot in Streamlit
+    st.pyplot(plt)
 
 # Page 3: Machine Learning Modeling
 def machine_learning_modeling():
