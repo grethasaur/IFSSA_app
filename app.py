@@ -157,7 +157,7 @@ def exploratory_data_analysis():
     with col1:
         st.metric("Unique Clients", "1,045")
     with col2:
-        st.metric("Active Clients", "979")
+        st.metric("Active Clients", "986")
 
     # Second Column: Client and Workforce Information
     with col3:
