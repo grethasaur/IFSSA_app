@@ -457,17 +457,11 @@ def xai():
     
     # Function to get SHAP values for a sample prediction
     def explain_prediction(input_data):
-        # Ensure numeric data types and no missing values
-        input_data = input_data.apply(pd.to_numeric, errors='coerce').fillna(0)
-        input_data = input_data[feature_columns]  # Ensure it has the correct features
-        
-        # If the input_data is already a DataFrame, skip the .to_frame() conversion
-        if isinstance(input_data, pd.Series):
-            input_data = input_data.to_frame().T  # Convert to DataFrame if it's a Series
-        
+        # Ensure input_data is in the correct format for SHAP (e.g., DataFrame with correct columns)
+        input_data = input_data[feature_columns]  # Ensure only relevant features are passed
         shap_values = explainer(input_data)
         return shap_values
-
+    
     # Streamlit input interface for users to select a row to explain
     st.header("Select a Row for Explanation")
 
