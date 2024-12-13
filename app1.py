@@ -459,8 +459,10 @@ def xai():
     Below is the SHAP analysis for a sample prediction:
     """)
     
-    # Load the trained model (if not already loaded)
+    # Load time-lagged features and model
+    time_lagged_features = pd.read_csv('time_lagged_features.csv')
     model = joblib.load('model_xgb.pkl')
+    history_dataset = time_lagged_features.copy()
 
     # Initialize SHAP explainer for XGBoost model
     explainer = shap.Explainer(model)
