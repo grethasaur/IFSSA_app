@@ -70,7 +70,7 @@ def homepage():
     # National Food Insecurity statistic
     col1.metric("National Food Insecurity", "22.9%", "Canadians Affected")
     col2.metric("Alberta's Food Insecurity", "27%", "vs National Avg")
-    col3.metric("Newcomers (< 10yrs) in Canada", "32%")
+    col3.metric("< 10yrs in Canada", "32%", "Newcomers")
 
     # IFSSA Specific
     col4.metric("IFSSA Hampers Distributed Monthly", "2000", "Growing Demand")
