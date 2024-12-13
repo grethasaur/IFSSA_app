@@ -56,10 +56,10 @@ def homepage():
     # Introduction Section
     st.markdown("<h2 class='sub-header'>Introduction</h2>", unsafe_allow_html=True)
     st.info(
-        "Food insecurity has become a pressing issue across Canada, with Alberta experiencing particularly alarming rates."
-        "Edmonton has been hit hard, with food bank usage doubling since the COVID-19 pandemic."
-        "Additionally, food hamper sizes have decreased due to resource constraints (Tran, 2024)."
-        "These challenges underscore the urgent need for innovative solutions to combat the growing food insecurity crisis."
+        "Food insecurity has become a pressing issue across Canada, with Alberta experiencing particularly alarming rates. "
+        "Edmonton has been hit hard, with food bank usage doubling since the COVID-19 pandemic. "
+        "Additionally, food hamper sizes have decreased due to resource constraints (Tran, 2024). "
+        "These challenges underscore the urgent need for innovative solutions to combat the growing food insecurity crisis. "
         "This project uses data analysis and machine learning to forecast demand, helping ensure more efficient resource allocation and better outcomes for those in need."
     )
     col1, col2 = st.columns(2)
@@ -67,7 +67,7 @@ def homepage():
     with col1:
         st.markdown("""
         **Mission:**  
-        To forecast and meet community demand across Edmonton by leveraging data-driven insights for the Islamic Family Foundation's food hamper program.
+        To forecast and meet community demand across Edmonton by leveraging data-driven insights for the Islamic Family Foundation's food hamper program. 
         We aim to optimize resource allocation, ensuring timely, culturally appropriate support for food-insecure households.
         """)
     
