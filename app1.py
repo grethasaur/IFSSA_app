@@ -11,6 +11,7 @@ import folium
 import streamlit.components.v1 as components
 from PIL import Image
 import shap
+from sklearn.inspection import plot_partial_dependence
 
 # Load the dataset with a specified encoding
 df_selected = pd.read_csv('df_selected.csv', encoding='latin1')
@@ -441,55 +442,103 @@ def client_mapping():
 def xai():
     st.title("Explainable AI")
 
-    # Load model and dataset for explainability
+    # Introduction to Explainable AI
+    st.write("""
+    **Explainable AI (XAI)** techniques help to interpret how machine learning models make predictions. 
+    In this section, we will explore methods to understand the model's decision-making process and how it uses different features for prediction.
+    This improves trust in the model and makes the results more actionable for users.
+    """)
+
+    # SHAP Values
+    st.subheader("SHAP Values")
+    st.write("""
+    SHAP (SHapley Additive exPlanations) values are used to explain the contribution of each feature 
+    to individual predictions. By calculating SHAP values, we can see how much each feature 
+    (such as `scheduled_date_count`, `month`, `day_of_week`, etc.) contributes to the prediction for a specific data point.
+    
+    Below is the SHAP analysis for a sample prediction:
+    """)
+    
+    # Load the trained model (if not already loaded)
     model = joblib.load('model_xgb.pkl')
-    time_lagged_features = pd.read_csv('time_lagged_features.csv')
 
-    # Extract the feature columns that were used for the model training
-    feature_columns = [
-        'scheduled_date_count', 'pickup_date_count_lag_7', 'scheduled_date_count_7',
-        'pickup_date_count_lag_14', 'scheduled_date_count_14', 'pickup_date_count_lag_21', 'scheduled_date_count_21',
-        'month', 'day_of_week', 'quarter', 'day_of_year', 'week_of_year'
-    ]
-
-    # Prepare SHAP explainer
+    # Initialize SHAP explainer for XGBoost model
     explainer = shap.Explainer(model)
     
-    # Function to get SHAP values for a sample prediction
-    def explain_prediction(input_data):
-        # Ensure input_data is in the correct format for SHAP (e.g., DataFrame with correct columns)
-        input_data = input_data[feature_columns]  # Ensure only relevant features are passed
-        shap_values = explainer(input_data)
-        return shap_values
+    # Choose a sample data point from history_dataset for explanation
+    sample_data = history_dataset.iloc[0][feature_columns].values.reshape(1, -1)
     
-    # Streamlit input interface for users to select a row to explain
-    st.header("Select a Row for Explanation")
+    # Calculate SHAP values
+    shap_values = explainer(sample_data)
+    
+    # Display SHAP summary plot
+    shap.summary_plot(shap_values, sample_data, feature_names=feature_columns)
+    st.pyplot()
 
-    row_index = st.number_input("Select Row Index for Explanation", min_value=0, max_value=len(time_lagged_features)-1, value=0)
+    # Feature Importance Plot
+    st.subheader("Feature Importance")
+    st.write("""
+    Feature importance plots show the relative importance of each feature in making predictions. 
+    The more important a feature is, the larger its contribution to the final model decision.
+    Below is the feature importance plot for the current model:
+    """)
 
-    # Get the selected row of data for explanation
-    selected_row = time_lagged_features.iloc[[row_index]]
+    # Get feature importances from the XGBoost model
+    feature_importance = model.feature_importances_
+    
+    # Create a DataFrame for feature importances and sort them
+    feature_importance_df = pd.DataFrame({
+        'Feature': feature_columns,
+        'Importance': feature_importance
+    }).sort_values(by='Importance', ascending=False)
 
-    # Show the selected row's features
-    st.write("### Selected Features")
-    st.write(selected_row)
+    # Display feature importance as a bar chart
+    st.bar_chart(feature_importance_df.set_index('Feature')['Importance'])
 
-    # Get SHAP values for the selected row
-    shap_values = explain_prediction(selected_row)
+    # Partial Dependence Plot (PDP)
+    st.subheader("Partial Dependence Plot (PDP)")
+    st.write("""
+    Partial Dependence Plots help us understand the relationship between individual features and the target prediction. 
+    They show how changing a feature's value influences the predicted outcome while keeping other features constant.
+    Below is the PDP for a key feature like `scheduled_date_count`:
+    """)
 
-    # Show the SHAP force plot for the selected prediction
-    st.write("### SHAP Explanation (Force Plot)")
-    shap.initjs()
-    st.components.v1.html(shap.force_plot(shap_values[0].base_values, shap_values[0].values, selected_row), height=500)
+    # PDP for 'scheduled_date_count' feature
+    fig, ax = plt.subplots(figsize=(10, 6))
+    plot_partial_dependence(model, X=history_dataset[feature_columns], features=['scheduled_date_count'], ax=ax)
+    st.pyplot(fig)
 
-    # Show the SHAP summary plot (feature importance for the entire dataset)
-    st.write("### Feature Importance (Summary Plot)")
-    shap.summary_plot(shap_values, time_lagged_features[feature_columns])
+    # Residual Analysis
+    st.header("Residual Analysis")
+    st.write("""
+    Residual analysis helps to evaluate how well the model is performing by comparing the actual vs. predicted values. 
+    A well-performing model should have residuals that are randomly distributed. 
+    Below is a plot comparing the actual vs. predicted pickup counts:
+    """)
 
-    # Optionally, you can show a dependence plot for a specific feature
-    feature_name = st.selectbox("Select Feature for Dependence Plot", feature_columns)
-    st.write(f"### SHAP Dependence Plot for {feature_name}")
-    shap.dependence_plot(feature_name, shap_values, time_lagged_features[feature_columns])
+    # Predictions and residuals
+    predictions = model.predict(history_dataset[feature_columns])
+    residuals = history_dataset['pickup_date_count'] - predictions
+
+    # Plot Actual vs. Predicted Residuals
+    fig, ax = plt.subplots(figsize=(10, 6))
+    ax.scatter(history_dataset['pickup_date_count'], residuals)
+    ax.axhline(y=0, color='r', linestyle='--')
+    ax.set_xlabel('Actual Pickup Count')
+    ax.set_ylabel('Residuals')
+    ax.set_title('Residuals: Actual vs. Predicted')
+    st.pyplot(fig)
+
+    # Conclusion
+    st.write("""
+    In this section, we explored various XAI techniques to help you understand how the model makes predictions:
+    - **SHAP Values**: Show how much each feature contributes to specific predictions.
+    - **Feature Importance**: Displays the relative importance of each feature in model decisions.
+    - **Partial Dependence Plots (PDP)**: Visualizes how individual features influence the predicted outcome.
+    - **Residual Analysis**: Analyzes the residuals (actual vs. predicted values) for model performance evaluation.
+    
+    By incorporating these techniques, we ensure transparency and interpretability in the model, building trust in the results.
+    """)
 
 # Main App Logic
 def main():
