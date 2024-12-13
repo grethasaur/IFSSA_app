@@ -63,9 +63,9 @@ def homepage():
     # Key Statistics Section
     st.markdown("<h2 class='sub-header'>Food Insecurity at a Glance</h2>", unsafe_allow_html=True)
     col1, col2, col3 = st.columns(3)
-    col1.metric("Monthly Hampers Distributed", "3,095", "Growing Demand")
+    col1.metric("IFSSA Monthly Hampers Distributed", "3,095", "Growing Demand")
     col2.metric("Alberta's Food Insecurity", "27% Higher", "vs National Avg")
-    col3.metric("National Food Insecurity", "22.9%", "Canadians Affected")
+    col3.metric("National Food Insecurity", "22.9%", "Canadians Affected", delta_color = False)
 
 
     st.write("---")
