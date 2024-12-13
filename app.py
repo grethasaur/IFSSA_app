@@ -365,6 +365,8 @@ def exploratory_data_analysis():
     # Show plot in Streamlit
     st.pyplot(plt)
 
+    tableau_url = "https://public.tableau.com/app/profile/aya.h3387/viz/WorkIntegratedllDashboard/Dash1"  # Replace with your Tableau URL
+    components.iframe(tableau_url, width=800, height=800)
 
 # Page 3: Neighbourhood Mapping
 def client_mapping():
