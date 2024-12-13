@@ -65,7 +65,7 @@ def homepage():
     col1, col2, col3 = st.columns(3)
     col1.metric("IFSSA Monthly Hampers Distributed", "3,095", "Growing Demand")
     col2.metric("Alberta's Food Insecurity", "27% Higher", "vs National Avg")
-    col3.metric("National Food Insecurity", "22.9%", "Canadians Affected", delta_color = False)
+    col3.metric("National Food Insecurity", "22.9%", "Canadians Affected", delta_color = "off")
 
 
     st.write("---")
