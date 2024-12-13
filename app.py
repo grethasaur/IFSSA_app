@@ -666,6 +666,12 @@ def xai():
     Plotting residuals against time helps identify temporal patterns, trends, or periods where the model may underperform.
     Ideally, residuals should be randomly distributed across time.
     """)
+    
+    # Generate a date range with the same number of rows as the history_dataset
+    history_dataset['date'] = pd.date_range(start='2023-11-01', periods=len(history_dataset), freq='D')
+    
+    # Set 'DATE' as the index
+    history_dataset = history_dataset.set_index('date').sort_index()
 
     # Predictions and residuals
     predictions = model.predict(history_dataset[feature_columns])
@@ -678,7 +684,7 @@ def xai():
     # Residuals vs. Time Plot
     fig, ax = plt.subplots(figsize=(10, 6))
     # Use 'day_of_year' or 'week_of_year' as a proxy for time
-    ax.plot(history_dataset['day_of_year'], residuals, label='Residuals', color='tab:blue')
+    ax.plot(history_dataset.index, residuals, label='Residuals', color='tab:blue')
     ax.set_xlabel('Day of Year')  # Update x-axis label
     ax.axhline(y=0, color='r', linestyle='--')
     ax.set_xlabel('Date')
@@ -694,8 +700,8 @@ def xai():
     """)
 
     fig, ax = plt.subplots(figsize=(10, 6))
-    ax.plot(history_dataset['day_of_year'], history_dataset['pickup_date_count'], label='Actual', color='tab:green')
-    ax.plot(history_dataset['day_of_year'], history_dataset['Predicted'], label='Predicted', color='tab:orange')
+    ax.plot(history_dataset.index, history_dataset['pickup_date_count'], label='Actual', color='tab:green')
+    ax.plot(history_dataset.index, history_dataset['Predicted'], label='Predicted', color='tab:orange')
     ax.set_xlabel('Date')
     ax.set_ylabel('Pickup Counts')
     ax.set_title('Actual vs Predicted Pickup Counts Over Time')
