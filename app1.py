@@ -432,7 +432,7 @@ def machine_learning_modeling():
                 color: grey;
             }
         </style>
-        <h1 class="main-header">🗺📈 Machine Learning Modelling</h1>
+        <h1 class="main-header">📈 Machine Learning Modelling</h1>
     """, unsafe_allow_html=True)
     
     # Load time-lagged features and model
@@ -528,10 +528,7 @@ def machine_learning_modeling():
             return None
 
     # Streamlit App
-    st.title("Pickup Count Predictor")
-
-    # Input Interface (on the page, not the sidebar now)
-    st.header("Input Parameters")
+    st.header("Pickup Count Predictor")
 
     # Date picker for the target date
     target_date = st.date_input("Select the Target Date:", pd.to_datetime("2024-09-05"))
@@ -569,7 +566,7 @@ def xai():
                 color: grey;
             }
         </style>
-    <h1 class="main-header">🗺🧠 Explainable AI</h1>
+    <h1 class="main-header">🧠 Explainable AI</h1>
     """, unsafe_allow_html=True)
 
     # Introduction to Explainable AI
