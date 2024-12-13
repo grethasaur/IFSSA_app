@@ -413,24 +413,24 @@ def client_mapping():
 # Page 4: Machine Learning Modeling
 def machine_learning_modeling():
     st.markdown("""
-    <style>
-        .main-header {
-            font-size: 6rem;
-            font-weight: bold;
-            text-align: center;
-            margin-bottom: 1rem;
-        }
-        .sub-header {
-            font-size: 1.5rem;
-            font-weight: semi-bold;
-            margin-top: 1rem;
-        }
-        .footer {
-            font-size: 0.8rem;
-            text-align: center;
-            margin-top: 2rem;
-            color: grey;
-        }
+        <style>
+            .main-header {
+                font-size: 6rem;
+                font-weight: bold;
+                text-align: center;
+                margin-bottom: 1rem;
+            }
+            .sub-header {
+                font-size: 1.5rem;
+                font-weight: semi-bold;
+                margin-top: 1rem;
+            }
+            .footer {
+                font-size: 0.8rem;
+                text-align: center;
+                margin-top: 2rem;
+                color: grey;
+            }
         </style>
         <h1 class="main-header">🗺📈 Machine Learning Modelling</h1>
     """, unsafe_allow_html=True)
@@ -550,25 +550,25 @@ def machine_learning_modeling():
 # Page 5: Explainable AI
 def xai():
     st.markdown("""
-    <style>
-        .main-header {
-            font-size: 6rem;
-            font-weight: bold;
-            text-align: center;
-            margin-bottom: 1rem;
-        }
-        .sub-header {
-            font-size: 1.5rem;
-            font-weight: semi-bold;
-            margin-top: 1rem;
-        }
-        .footer {
-            font-size: 0.8rem;
-            text-align: center;
-            margin-top: 2rem;
-            color: grey;
-        }
-    </style>
+        <style>
+            .main-header {
+                font-size: 6rem;
+                font-weight: bold;
+                text-align: center;
+                margin-bottom: 1rem;
+            }
+            .sub-header {
+                font-size: 1.5rem;
+                font-weight: semi-bold;
+                margin-top: 1rem;
+            }
+            .footer {
+                font-size: 0.8rem;
+                text-align: center;
+                margin-top: 2rem;
+                color: grey;
+            }
+        </style>
     <h1 class="main-header">🗺🧠 Explainable AI</h1>
     """, unsafe_allow_html=True)
 
