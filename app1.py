@@ -93,14 +93,13 @@ def homepage():
 
 # Page 2: Exploratory Data Analysis (EDA)
 def exploratory_data_analysis():
-    st.title("Exploratory Data Analysis")
-
     # Page Title
-    st.markdown("<h1 style='text-align: center; color: white; font-size: 48px;'>Key Insights</h1>", unsafe_allow_html=True)
+    st.markdown("<h1 style='text-align: center; color: white; font-size: 48px;'>Exploratory Data Analysis</h1>", unsafe_allow_html=True)
 
     # Horizontal Line
     st.markdown("<hr style='border: 2px solid #F9B233;'>", unsafe_allow_html=True)
-
+    
+    st.header("Key Insights")
     # Layout: Columns
     col1, col2 = st.columns([1, 1])  # Left and right columns for gender
     col3, col4 = st.columns([1, 1])  # Left and right columns for client data
@@ -297,7 +296,7 @@ def exploratory_data_analysis():
 
 # Page 3: Machine Learning Modeling
 def machine_learning_modeling():
-    st.title("Machine Learning Modeling")
+    st.markdown("<h1 style='text-align: center; color: white; font-size: 48px;'>Machine Learning Modelling</h1>", unsafe_allow_html=True)
 
     # Load time-lagged features and model
     time_lagged_features = pd.read_csv('time_lagged_features.csv')
@@ -413,7 +412,7 @@ def machine_learning_modeling():
 
 # Page 4: Neighbourhood Mapping
 def client_mapping():
-    st.title("Client GeoMapping in Edmonton")
+    st.markdown("<h1 style='text-align: center; color: white; font-size: 48px;'>Client GeoMapping in Edmonton</h1>", unsafe_allow_html=True)
 
     # Load the dataset
     clients_df = pd.read_csv('client_cluster.csv', encoding='latin1')
@@ -441,7 +440,7 @@ def client_mapping():
 
 # Page 5: Explainable AI
 def xai():
-    st.title("Explainable AI")
+    st.markdown("<h1 style='text-align: center; color: white; font-size: 48px;'>Explainable AI</h1>", unsafe_allow_html=True)
 
     # Introduction to Explainable AI
     st.write("""
