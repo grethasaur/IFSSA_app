@@ -481,7 +481,8 @@ def xai():
     
     # Display SHAP summary plot
     shap.summary_plot(shap_values, sample_data, feature_names=feature_columns)
-    st.pyplot()
+    fig = plt.gcf()  # Get the current figure from SHAP plot
+    st.pyplot(fig)  # Pass the figure explicitly to st.pyplot()
 
     # Feature Importance Plot (using SHAP or model feature importances)
     st.subheader("Feature Importance")
@@ -501,7 +502,12 @@ def xai():
     }).sort_values(by='Importance', ascending=False)
 
     # Display feature importance as a bar chart
-    st.bar_chart(feature_importance_df.set_index('Feature')['Importance'])
+    fig, ax = plt.subplots(figsize=(10, 6))  # Create a figure and axis
+    ax.bar(feature_importance_df['Feature'], feature_importance_df['Importance'])
+    ax.set_xlabel('Features')
+    ax.set_ylabel('Importance')
+    ax.set_title('Feature Importance')
+    st.pyplot(fig)  # Explicitly pass the figure
 
     # Residual Analysis
     st.header("Residual Analysis")
@@ -516,13 +522,13 @@ def xai():
     residuals = history_dataset['pickup_date_count'] - predictions
 
     # Plot Actual vs. Predicted Residuals
-    fig, ax = plt.subplots(figsize=(10, 6))
+    fig, ax = plt.subplots(figsize=(10, 6))  # Create a figure and axis
     ax.scatter(history_dataset['pickup_date_count'], residuals)
     ax.axhline(y=0, color='r', linestyle='--')
     ax.set_xlabel('Actual Pickup Count')
     ax.set_ylabel('Residuals')
     ax.set_title('Residuals: Actual vs. Predicted')
-    st.pyplot(fig)
+    st.pyplot(fig)  # Explicitly pass the figure
 
     # Conclusion
     st.write("""
@@ -533,6 +539,7 @@ def xai():
     
     By incorporating these techniques, we ensure transparency and interpretability in the model, building trust in the results.
     """)
+
 
 
 # Main App Logic
