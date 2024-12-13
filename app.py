@@ -65,8 +65,8 @@ def homepage():
 
     # Key Statistics Section
     st.markdown("<h2 class='sub-header'>Food Insecurity Statistics at a Glance</h2>", unsafe_allow_html=True)
-    col1, col2 = st.columns(2)
-    col3, col4 = st.columns(2)
+    col2, col1 = st.columns(2)
+    col4, col3 = st.columns(2)
 
     # National Food Insecurity statistic
     col1.metric("National Food Insecurity", "22.9%", "Canadians Affected")
