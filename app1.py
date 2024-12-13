@@ -418,7 +418,7 @@ def client_mapping():
 
     # Create a folium map centered around the mean latitude and longitude
     map_center = [clients_df['latitude'].mean(), clients_df['longitude'].mean()]
-    map = folium.Map(location=map_center, zoom_start=9)
+    map = folium.Map(location=map_center, zoom_start=10)
 
     # Define colors for each cluster
     colors = ['red', 'blue', 'green', 'purple', 'orange', 'darkred', 'darkblue', 'darkgreen']
@@ -437,7 +437,7 @@ def client_mapping():
 
 
 
-# Page 5: Data Collection
+# Page 5: Explainable AI
 def xai():
     st.title("Explainable AI")
 
@@ -457,6 +457,10 @@ def xai():
     
     # Function to get SHAP values for a sample prediction
     def explain_prediction(input_data):
+        # Ensure numeric data types and no missing values
+        input_data = input_data.apply(pd.to_numeric, errors='coerce').fillna(0)
+        input_data = input_data[feature_columns]  # Make sure it has the correct features
+        input_data = input_data.to_frame().T  # Convert to DataFrame if needed
         shap_values = explainer(input_data)
         return shap_values
 
