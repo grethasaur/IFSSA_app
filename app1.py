@@ -95,11 +95,12 @@ def homepage():
 def exploratory_data_analysis():
     # Page Title
     st.markdown("<h1 style='text-align: center; color: white; font-size: 48px;'>Exploratory Data Analysis</h1>", unsafe_allow_html=True)
-
-    # Horizontal Line
-    st.markdown("<hr style='border: 2px solid #F9B233;'>", unsafe_allow_html=True)
     
     st.header("Key Insights")
+    
+    # Horizontal Line
+    st.markdown("<hr style='border: 2px solid #e19a64;'>", unsafe_allow_html=True)
+    
     # Layout: Columns
     col1, col2 = st.columns([1, 1])  # Left and right columns for gender
     col3, col4 = st.columns([1, 1])  # Left and right columns for client data
@@ -130,7 +131,9 @@ def exploratory_data_analysis():
     with col8:
         st.metric("Belong to a Household", "98%")
 
-
+    # Horizontal Line
+    st.markdown("<hr style='border: 2px solid #e19a64;'>", unsafe_allow_html=True)
+    
     # Remove duplicate clients for individual-level analysis
     sub_df = df_selected.drop_duplicates(subset=['unique_client'])
 
@@ -294,7 +297,35 @@ def exploratory_data_analysis():
     # Show plot in Streamlit
     st.pyplot(plt)
 
-# Page 3: Machine Learning Modeling
+
+# Page 3: Neighbourhood Mapping
+def client_mapping():
+    st.markdown("<h1 style='text-align: center; color: white; font-size: 48px;'>Client GeoMapping in Edmonton</h1>", unsafe_allow_html=True)
+
+    # Load the dataset
+    clients_df = pd.read_csv('client_cluster.csv', encoding='latin1')
+
+    # Create a folium map centered around the mean latitude and longitude
+    map_center = [clients_df['latitude'].mean(), clients_df['longitude'].mean()]
+    map = folium.Map(location=map_center, zoom_start=10)
+
+    # Define colors for each cluster
+    colors = ['red', 'blue', 'green', 'purple', 'orange', 'darkred', 'darkblue', 'darkgreen']
+
+    # Add markers to the map, coloring them by cluster
+    for idx, row in clients_df.iterrows():
+        folium.Marker(
+            location=[row['latitude'], row['longitude']],
+            popup=f"Client {row['postal_code']}, Cluster {row['cluster']}",
+            icon=folium.Icon(color=colors[row['cluster']])
+        ).add_to(map)
+
+    # Display the map in Streamlit
+    map_html = map._repr_html_()  # Get the HTML representation of the map
+    components.html(map_html, height=900)  # Render it in the Streamlit app
+
+
+# Page 4: Machine Learning Modeling
 def machine_learning_modeling():
     st.markdown("<h1 style='text-align: center; color: white; font-size: 48px;'>Machine Learning Modelling</h1>", unsafe_allow_html=True)
 
@@ -410,34 +441,6 @@ def machine_learning_modeling():
             st.success(prediction_result)
 
 
-# Page 4: Neighbourhood Mapping
-def client_mapping():
-    st.markdown("<h1 style='text-align: center; color: white; font-size: 48px;'>Client GeoMapping in Edmonton</h1>", unsafe_allow_html=True)
-
-    # Load the dataset
-    clients_df = pd.read_csv('client_cluster.csv', encoding='latin1')
-
-    # Create a folium map centered around the mean latitude and longitude
-    map_center = [clients_df['latitude'].mean(), clients_df['longitude'].mean()]
-    map = folium.Map(location=map_center, zoom_start=10)
-
-    # Define colors for each cluster
-    colors = ['red', 'blue', 'green', 'purple', 'orange', 'darkred', 'darkblue', 'darkgreen']
-
-    # Add markers to the map, coloring them by cluster
-    for idx, row in clients_df.iterrows():
-        folium.Marker(
-            location=[row['latitude'], row['longitude']],
-            popup=f"Client {row['postal_code']}, Cluster {row['cluster']}",
-            icon=folium.Icon(color=colors[row['cluster']])
-        ).add_to(map)
-
-    # Display the map in Streamlit
-    map_html = map._repr_html_()  # Get the HTML representation of the map
-    components.html(map_html, height=900)  # Render it in the Streamlit app
-
-
-
 # Page 5: Explainable AI
 def xai():
     st.markdown("<h1 style='text-align: center; color: white; font-size: 48px;'>Explainable AI</h1>", unsafe_allow_html=True)
@@ -544,16 +547,16 @@ def xai():
 # Main App Logic
 def main():
     st.sidebar.title("Food Drive App")
-    app_page = st.sidebar.radio("Select a Page", ["Homepage", "EDA", "ML Modeling", "GeoMapping", "Explainable AI"])
+    app_page = st.sidebar.radio("Select a Page", ["Homepage", "EDA","GeoMapping", "ML Modeling", "Explainable AI"])
 
     if app_page == "Homepage":
         homepage()
     elif app_page == "EDA":
         exploratory_data_analysis()
-    elif app_page == "ML Modeling":
-        machine_learning_modeling()
     elif app_page == "GeoMapping":
         client_mapping()
+    elif app_page == "ML Modeling":
+        machine_learning_modeling()
     elif app_page == "Explainable AI":
         xai()
 
