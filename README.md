@@ -1,5 +1,19 @@
 # Forecasting Food Hamper Demand
 
+## Table of Contents
+1. [Overview](#overview)
+2. [Project Goals](#project-goals)
+3. [Key Features](#key-features)
+4. [Data Sources](#data-sources)
+5. [Data Preprocessing](#data-preprocessing)
+6. [Model Development](#model-development)
+7. [Model Training](#model-training)
+8. [Deployment](#deployment)
+9. [Challenges & Solutions](#challenges--solutions)
+10. [Future Work](#future-work)
+11. [How to Run](#how-to-run)
+12. [Conclusion](#conclusion)
+
 ## Overview
 The **Forecasting Food Hamper Demand** project was developed to support **Islamic Family & Social Services Association (IslamicFamily)** in addressing food insecurity in Edmonton. With food insecurity on the rise, this project utilizes machine learning techniques to forecast food hamper demand, enabling the organization to plan distributions more effectively and allocate resources efficiently.
 
@@ -19,7 +33,7 @@ The primary objective is to ensure that no family goes without essential resourc
   - **XGBoost**: The final choice for modeling due to its superior performance in handling structured data.
   
 - **Feature Engineering**: Created lagged features from historical data (e.g., previous pickup counts) to incorporate temporal trends into the model.
-- **User Interface**: Deployed a streamlit-based web application to allow users to interact with the model and get real-time predictions based on input data.
+- **User Interface**: Deployed a Streamlit-based web application to allow users to interact with the model and get real-time predictions based on input data.
 
 ## Data Sources
 ### Clients Dataset
@@ -66,7 +80,7 @@ Three models were considered to forecast food hamper demand:
 
 ### Steps for Deployment
 1. **Train and Save the Model**: The XGBoost model was trained and saved as a pickle file.
-2. **Create the Gradio Interface**: The interface includes dropdowns for selecting dates and a numerical input for the scheduled count.
+2. **Create the Streamlit Interface**: The interface includes dropdowns for selecting dates and a numerical input for the scheduled count.
 3. **Launch the App**: The Streamlit app was launched, allowing users to make predictions via an intuitive web interface.
 
 ### Monitoring & Maintenance
@@ -80,7 +94,9 @@ Three models were considered to forecast food hamper demand:
 ## Future Work
 - **Model Retraining**: The model will be periodically retrained with updated data to adapt to new trends and patterns.
 - **Feature Expansion**: Additional features, such as weather data or real-time cultural event schedules, could be integrated into future versions to improve prediction accuracy.
-- **Enhanced User Interface**: Future iterations of the Streamlit interface may include more advanced features like interactive reports for better decision-making.
+- **Enhanced User Interface**: Future iterations of the Streamlit interface may include more advanced features like data visualizations or interactive reports for better decision-making.
+
+## How to Run
 
 ## Installation & Usage
 1. **Clone the Repository**:
@@ -92,6 +108,12 @@ Three models were considered to forecast food hamper demand:
 4. **Run the app**:
    ```bash
    python app.py
+
+--
+
+## Conclusion
+This project helps Islamic Family & Social Services Association (IslamicFamily) predict and efficiently allocate food hampers to households in need, ultimately improving service delivery and food security within the community. By leveraging machine learning and forecasting, the organization can better anticipate demand and meet the needs of vulnerable families in Edmonton, fostering a more equitable society.
+
 
 ## Acknowledgments
 This project was developed for Islamic Family & Social Services Association to enhance their ability to predict and respond to the food hamper needs of Edmonton's food-insecure families.
