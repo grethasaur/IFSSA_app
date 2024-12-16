@@ -1,5 +1,7 @@
 # Forecasting Food Hamper Demand
 
+[Click me for the app!](https://ifssaapp-kdwr5tootc9wfnpozztqo6.streamlit.app/)
+
 ## Table of Contents
 1. [Overview](#overview)
 2. [Project Goals](#project-goals)
