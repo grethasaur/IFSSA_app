@@ -109,8 +109,6 @@ Three models were considered to forecast food hamper demand:
    ```bash
    python app.py
 
---
-
 ## Conclusion
 This project helps Islamic Family & Social Services Association (IslamicFamily) predict and efficiently allocate food hampers to households in need, ultimately improving service delivery and food security within the community. By leveraging machine learning and forecasting, the organization can better anticipate demand and meet the needs of vulnerable families in Edmonton, fostering a more equitable society.
 
