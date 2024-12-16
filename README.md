@@ -87,8 +87,10 @@ Three models were considered to forecast food hamper demand:
    ```bash
    git clone <repository_url>
 2. **Install Dependencies**:
+   ```bash
    pip install -r requirements.txt
-3. **Run the app**:
+4. **Run the app**:
+   ```bash
    python app.py
 
 ## Acknowledgments
